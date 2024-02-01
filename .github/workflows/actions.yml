@@ -1,0 +1,13 @@
+name: tests
+run-name: ${{ github.actor }} - ${{ github.event_name }}
+on: [push]
+jobs:
+  greeting_job:
+    runs-on: ubuntu-latest
+    env:
+      SECRET: ${{ secrets.MY_SECRET }}
+    steps:
+      - name: "Secrety"
+        run: echo "here's my secret $SECRET!"
+        env:
+          First_Name: Mona
