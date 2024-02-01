@@ -8,6 +8,6 @@ jobs:
       SECRET: ${{ secrets.MY_SECRET }}
     steps:
       - name: "Secrety"
-        run: echo "here's my secret $SECRET!"
+        run: echo "here's my secret ${SECRET^^}!"
         env:
           First_Name: Mona
