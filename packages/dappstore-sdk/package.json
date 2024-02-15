@@ -23,7 +23,6 @@
     }
   },
   "devDependencies": {
-    "@evmos/config": "workspace:*",
     "@trpc/client": "next",
     "@trpc/server": "next",
     "@types/lodash-es": "^4.17.12",
@@ -39,5 +38,8 @@
   "peerDependencies": {
     "zod": ">=3"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "publishConfig": {
+    "access": "public"
+  }
 }
