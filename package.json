@@ -6,7 +6,8 @@
     "dev": "turbo dev",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "dev:setup-cli": "npm link"
+    "dev:setup-cli": "npm link",
+    "release": "bun run build && changeset publish"
   },
   "devDependencies": {
     "@evmos/dappstore-cli": "workspace:*",

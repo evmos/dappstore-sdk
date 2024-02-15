@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
-import { createDAppstoreClient } from "@evmos/dappstore-sdk";
+import { createDAppStoreClient } from "@evmos/DAppStore-sdk";
 
-const client = createDAppstoreClient();
+const client = createDAppStoreClient();
 function App() {
   // const [host, setState] = useState(0);
 

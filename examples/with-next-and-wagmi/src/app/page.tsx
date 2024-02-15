@@ -1,6 +1,6 @@
 "use client";
 
-import { client, dAppstoreClient, provider } from "@/wagmi";
+import { client, DAppStoreClient, provider } from "@/wagmi";
 import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { useEffect, useState, useSyncExternalStore } from "react";
 const createAccountStore = () => {
