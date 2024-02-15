@@ -10,7 +10,7 @@
     "release": "bun run build && changeset publish"
   },
   "devDependencies": {
-    "@evmos/dappstore-cli": "workspace:*",
+    "dappstore": "workspace:*",
     "@types/bun": "^1.0.4",
     "autoprefixer": "^10.4.17",
     "postcss": "^8.4.35",

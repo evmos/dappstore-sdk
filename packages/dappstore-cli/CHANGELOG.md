@@ -1,4 +1,4 @@
-# @evmos/dappstore-cli
+# dappstore
 
 ## 0.0.1
 
