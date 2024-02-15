@@ -1,5 +1,5 @@
 {
-  "name": "@evmos/dappstore-cli",
+  "name": "dappstore",
   "version": "0.0.1",
   "private": false,
   "type": "module",
