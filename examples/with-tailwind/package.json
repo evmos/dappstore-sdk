@@ -1,0 +1,13 @@
+{
+  "name": "@evmos/demo-with-tailwind",
+  "type": "module",
+  "devDependencies": {},
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "autoprefixer": "^10.4.17",
+    "postcss": "^8.4.34",
+    "tailwindcss": "^3.4.1"
+  }
+}

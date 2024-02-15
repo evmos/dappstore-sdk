@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "noUncheckedIndexedAccess": true,
+    "declaration": true,
+    "declarationMap": true,
+
+    "isolatedModules": true,
+    "outDir": "dist",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"],
+}
