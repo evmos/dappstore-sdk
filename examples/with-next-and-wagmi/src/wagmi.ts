@@ -1,7 +1,7 @@
-import { createDAppstoreClient } from "@evmos/dappstore-sdk";
+import { createDAppStoreClient } from "@evmos/DAppStore-sdk";
 import { createWalletClient, custom } from "viem";
-export const dAppstoreClient = createDAppstoreClient();
-export const provider = dAppstoreClient.provider;
+export const DAppStoreClient = createDAppStoreClient();
+export const provider = DAppStoreClient.provider;
 export const client = createWalletClient({
   transport: custom(provider),
 });

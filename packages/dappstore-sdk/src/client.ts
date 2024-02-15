@@ -97,7 +97,7 @@ class Client {
   }
   init() {
     if (this.isInsideIframe === false) {
-      throw new Error("Cannot use DAppstore SDK outside of an iframe");
+      throw new Error("Cannot use DAppStore SDK outside of an iframe");
     }
     this.ack();
     const unsubAccounts = trpcClient.provider.on.accountsChanged.subscribe(
@@ -161,7 +161,7 @@ class Client {
   }
 }
 
-export const createDAppstoreClient = ({ autoInit = true } = {}) => {
+export const createDAppStoreClient = ({ autoInit = true } = {}) => {
   const client = new Client();
   if (autoInit) client.init();
   return client;
