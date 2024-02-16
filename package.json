@@ -10,7 +10,6 @@
     "release": "bun run build && changeset publish"
   },
   "devDependencies": {
-    "@evmos/config": "workspace:*",
     "@types/bun": "^1.0.4",
     "@types/node": "^20.11.19",
     "autoprefixer": "^10.4.17",
