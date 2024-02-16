@@ -1,4 +1,3 @@
-import { yellow } from "picocolors";
 import spawn from "cross-spawn";
 import { PackageManager } from "./get-package-manager.js";
 import { readPackageJson } from "./read-package-json.js";

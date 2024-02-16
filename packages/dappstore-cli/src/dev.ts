@@ -1,5 +1,6 @@
 import { program } from "@commander-js/extra-typings";
 import { serve } from "@evmos/dev-wrapper/serve/serve.js";
+import chalk from "chalk";
 
 program
   .command("dev")
@@ -12,10 +13,20 @@ program
   )
 
   .action(async ({ port, target }) => {
+    const targetUrl = target.startsWith("http")
+      ? target
+      : `http://localhost:${target}`;
     const app = serve({
-      target,
+      target: targetUrl,
     });
     app.listen(port, () => {
-      console.log(`Example app listening on port http://localhost:${port}`);
+      console.log(
+        "\n\n",
+        `${chalk.hex("#FF8C5C")(`☄️ Evmos DAppStore Widget`)} environment running on http://localhost:${port}`,
+        "\n\n",
+        chalk.dim(
+          `Note: Expects your widget server to be running on ${targetUrl}`
+        )
+      );
     });
   });
