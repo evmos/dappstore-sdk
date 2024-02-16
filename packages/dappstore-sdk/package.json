@@ -10,12 +10,12 @@
     "dev": "bun run --watch ./build.ts --watch  & bun run dev:types",
     "build": "bun run ./build.ts & tsc"
   },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      }
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     },
     "./internal/host": {
       "types": "./dist/host.d.ts",

@@ -3,6 +3,7 @@ import { serve } from "@evmos/dev-wrapper/serve/serve.js";
 
 program
   .command("dev")
+  .description("Start a development server")
   .option("-p, --port <port>", "Development server port", "1337")
   .option(
     "-t, --target <port>",
