@@ -26,7 +26,7 @@ const Header = () => {
     </header>
   );
 };
-export function WalletOptions() {
+function WalletOptions() {
   const { connectors, connect, isPending } = useConnect();
   const { disconnect } = useDisconnect();
   const { isConnected, address } = useAccount();

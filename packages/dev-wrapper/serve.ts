@@ -5,12 +5,8 @@ import { readFileSync } from "fs";
 const __dirname = fileURLToPath(new URL("./", import.meta.url));
 
 export const serve = ({ target }: { target: string }) => {
-  const targetUrl = target.startsWith("http")
-    ? target
-    : `http://localhost:${target}`;
-
   const app = express();
-  const envScript = `<script>__ENV__ = ${JSON.stringify({ TARGET: targetUrl })}</script>`;
+  const envScript = `<script>__ENV__ = ${JSON.stringify({ TARGET: target })}</script>`;
   const index = readFileSync(
     path.join(__dirname, "../app/index.html"),
     "utf-8"

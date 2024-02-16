@@ -1,81 +1,84 @@
-# Turborepo starter
+# DAppStore SDK client
 
-This is an official starter Turborepo.
+## Standalone usage:
 
-## Using this example
+```ts
+import { createDAppStoreClient } from "@evmos/dappstore-sdk";
 
-Run the following command:
+// Waits for the client to establish a connection to the DAppStore
+await dappstore.initialized;
 
-```sh
-npx create-turbo@latest
+console.log(
+  `DAppStore client initialized.`,
+  `Chain ID: ${dappstore.chainId}, Accounts: ${dappstore.accounts}`
+); // -> DAppStore client initialized. Chain ID: evmos:1, Accounts: ["0x..."]
 ```
 
-## What's inside?
+## Subscribe to account and chain id changes:
 
-This Turborepo includes the following packages/apps:
+```ts
+// Shorthand for dappstore.provider.on("accountsChanged", (accounts) => { ... })
+dappstore.onAccountsChange((accounts) => {
+  console.log(`Accounts changed: ${accounts}`); // -> Accounts changed: ["0x..."]
+});
+*
+// Shorthand for dappstore.provider.on("chainChanged", (chainId) => { ... })
+dappstore.onChainChange((chainId) => {
+  console.log(`Chain changed: ${chainId}`); // -> Chain changed: evmos:1
+});
 
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm build
+// Or interact directly with the provider
+dappstore.provider.request({ method: "eth_requestAccounts" }).then((accounts) => {
+ console.log(`Accounts: ${accounts}`); // -> Accounts: ["0x..."]
+});
 ```
 
-### Develop
+## Usage with React:
 
-To develop all apps and packages, run the following command:
+```tsx
+const dappstore = createDAppStoreClient();
+import { useEffect, useState } from "react";
 
+const useAccounts = () => {
+  const [accounts, setAccounts] = useState<`0x${string}`[]>(dappstore.accounts);
+  useEffect(() => {
+    return dappstore.onAccountsChange(setAccounts); // <- returns cleanup function
+  }, []);
+  return acccounts;
+};
+
+const useChainId = () => {
+  const [chainId, setChainId] = useState(dappstore.chainId);
+  useEffect(() => {
+    return dappstore.onChainChange(setChainId);
+  }, []);
+  return chainId;
+};
+
+const App = () => {
+  const accounts = useAccounts();
+  return <div>Accounts: {accounts.join(", ")}</div>;
+};
 ```
-cd my-turborepo
-pnpm dev
+
+## Send a transaction:
+
+```ts
+const sendTransaction = async (to: `0x${string}`) => {
+  const [from] = dappstore.accounts;
+  if (!from) {
+    throw new Error("No account connected");
+  }
+
+  return await dappstore.provider.request({
+    method: "eth_sendTransaction",
+    params: [
+      {
+        from,
+        to,
+        value: "0x1", // We recommend using a library like ethers.js or viem to handle amounts
+      },
+    ],
+  });
+};
 ```
-
-### Remote Caching
-
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)

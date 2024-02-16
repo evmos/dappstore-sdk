@@ -1,26 +1,31 @@
 // @ts-nocheck
 import Bun from "bun";
 import { dependencies, peerDependencies } from "./package.json";
-import { version } from "./package.json";
 import { watch } from "node:fs";
-export const build = async () =>
-  await Bun.build({
+export const build = async () => {
+  const result = await Bun.build({
     entrypoints: ["./src/index.ts"],
     target: "node",
     format: "esm",
     external: [...Object.keys(dependencies), ...Object.keys(peerDependencies)],
     outdir: "./dist",
   });
-const test = await build();
+
+  if (result.success === false) {
+    result.logs.forEach((log) => console.error(log));
+    return;
+  }
+  console.log("Build successful");
+};
+await build();
 
 if (process.argv.includes("--watch")) {
   const srcWatcher = watch(
     `${import.meta.dir}/src`,
     { recursive: true },
     async (event, filename) => {
-      await build();
-
       console.log(`Detected ${event} in ${filename} (src)`);
+      await build();
     }
   );
   process.on("SIGINT", () => {

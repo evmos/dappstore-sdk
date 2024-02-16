@@ -10,14 +10,16 @@
     "release": "bun run build && changeset publish"
   },
   "devDependencies": {
-    "dappstore": "workspace:*",
     "@types/bun": "^1.0.4",
+    "@types/node": "^20.11.19",
     "autoprefixer": "^10.4.17",
+    "dappstore": "workspace:*",
+    "knip": "^5.0.1",
     "postcss": "^8.4.35",
     "prettier": "^3.1.1",
     "tailwindcss": "^3.4.1",
     "turbo": "latest",
-    "@evmos/config": "workspace:*"
+    "typescript": "^5.3.3"
   },
   "engines": {
     "node": ">=18"
@@ -29,6 +31,7 @@
     "packages/*"
   ],
   "dependencies": {
-    "@changesets/cli": "^2.27.1"
+    "@changesets/cli": "^2.27.1",
+    "cross-spawn": "^7.0.3"
   }
 }

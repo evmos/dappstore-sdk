@@ -68,13 +68,22 @@ class SDKProvider implements StronglyTypedEIP1193Provider {
 }
 
 class Client {
-  private _host: null | ReturnType<typeof createHost> = null;
-  private _listeners: Record<string, Set<Function>> = {};
-  private _provider = new SDKProvider();
-  private _ready = false;
-  private _chainId: Hex | null = null;
-  private _accounts: Hex[] = [];
-  private _state: "uninitialized" | "ready" | "error" = "uninitialized";
+  // @internal
+  _host: null | ReturnType<typeof createHost> = null;
+  // @internal
+  _listeners: Record<string, Set<Function>> = {};
+  // @internal
+  _provider = new SDKProvider();
+  // @internal
+  _ready = false;
+  // @internal
+  _chainId: Hex | null = null;
+  // @internal
+  _accounts: Hex[] = [];
+  // @internal
+  _state: "uninitialized" | "ready" | "error" = "uninitialized";
+
+  initialized: Promise<() => void> = Promise.resolve(() => {});
   get ready() {
     return this._ready;
   }
@@ -88,18 +97,25 @@ class Client {
   get provider() {
     return this._provider;
   }
-  private get isInsideIframe() {
+  // @internal
+  get _isInsideIframe() {
     try {
       return window.self !== window.top;
     } catch (e) {
       return true;
     }
   }
-  init() {
-    if (this.isInsideIframe === false) {
-      throw new Error("Cannot use DAppStore SDK outside of an iframe");
+
+  constructor(autoInit = true) {
+    if (autoInit) this.initialized = this.init();
+  }
+  async init() {
+    if (this._isInsideIframe === false) {
+      throw new Error(
+        "Cannot use DAppStore SDK outside of the DAppStore iframe"
+      );
     }
-    this.ack();
+    await this.ack();
     const unsubAccounts = trpcClient.provider.on.accountsChanged.subscribe(
       undefined,
       {
@@ -162,7 +178,9 @@ class Client {
 }
 
 export const createDAppStoreClient = ({ autoInit = true } = {}) => {
-  const client = new Client();
-  if (autoInit) client.init();
+  const client = new Client(autoInit);
+
   return client;
 };
+
+export type DAppStoreClient = Client;

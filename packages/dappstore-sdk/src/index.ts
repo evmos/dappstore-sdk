@@ -1,2 +1,2 @@
-export { createDAppStoreClient as createDAppstoreClient } from "./client";
+export { createDAppStoreClient, type DAppStoreClient } from "./client";
 export * from "./types/EIP1193Provider";
