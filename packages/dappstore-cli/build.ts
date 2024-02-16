@@ -1,7 +1,6 @@
 // @ts-nocheck
 import Bun from "bun";
 import { dependencies, peerDependencies } from "./package.json";
-import { version } from "./package.json";
 import { watch } from "node:fs";
 export const build = async () => {
   const result = await Bun.build({
