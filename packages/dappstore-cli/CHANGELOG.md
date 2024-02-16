@@ -1,5 +1,14 @@
 # dappstore
 
+## 0.0.3
+
+### Patch Changes
+
+- 52bf8c3: Creates init command
+- 52bf8c3: Rename dappstore cli package
+- Updated dependencies [52bf8c3]
+  - @evmos/dev-wrapper@0.0.2
+
 ## 0.0.2
 
 ### Patch Changes
