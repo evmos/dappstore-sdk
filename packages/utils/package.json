@@ -1,0 +1,16 @@
+{
+  "name": "@evmos/utils",
+  "type": "module",
+  "sideEffects": false,
+  "version": "1.0.0",
+  "scripts": {},
+  "devDependencies": {
+    "@types/lodash-es": "^4.17.12",
+    "@types/node": "^20.10.6",
+    "lodash-es": "^4.17.21",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "esbuild": "^0.20.1"
+  }
+}

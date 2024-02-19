@@ -2,7 +2,7 @@
   "name": "dappstore-sdk",
   "private": true,
   "scripts": {
-    "build": "turbo build --filter=./packages/*",
+    "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
@@ -30,6 +30,6 @@
   ],
   "dependencies": {
     "@changesets/cli": "^2.27.1",
-    "cross-spawn": "^7.0.3"
+    "@evmos/utils": "workspace:*"
   }
 }
