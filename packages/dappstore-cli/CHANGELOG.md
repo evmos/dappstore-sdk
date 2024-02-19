@@ -1,5 +1,13 @@
 # dappstore
 
+## 0.0.5
+
+### Patch Changes
+
+- a6bacee: Refactor build pipeline
+- Updated dependencies [a6bacee]
+  - @evmos/dev-wrapper@0.0.4
+
 ## 0.0.4
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @evmos/dappstore-sdk
 
+## 0.0.5
+
+### Patch Changes
+
+- a6bacee: Refactor build pipeline
+
 ## 0.0.4
 
 ### Patch Changes
