@@ -2,7 +2,8 @@
   "extends": "@evmos/config/base.json",
   "compilerOptions": {
     "outDir": "./dist",
-    "target": "ESNext"
+    "target": "ESNext",
+    "module": "ESNext"
   },
   "include": ["./src/**/*", "./src/**/*.d.ts"],
   "exclude": ["node_modules", "dist"]
