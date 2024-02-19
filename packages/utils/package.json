@@ -2,7 +2,7 @@
   "name": "@evmos/utils",
   "type": "module",
   "sideEffects": false,
-  "version": "1.0.1",
+  "version": "1.0.0",
   "scripts": {},
   "devDependencies": {
     "@types/lodash-es": "^4.17.12",
