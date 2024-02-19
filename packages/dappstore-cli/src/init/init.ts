@@ -59,8 +59,10 @@ program
       },
     ]);
     if (!skipInstall) {
-      await installDependencies(packageManager, ["@evmos/dappstore-sdk"]);
-      await installDependencies(packageManager, ["dappstore"], "dev");
+      await installDependencies(packageManager, [
+        "@evmos/dappstore-sdk",
+        "dappstore",
+      ]);
     }
     const packageJson = await readPackageJson();
     packageJson.scripts = {

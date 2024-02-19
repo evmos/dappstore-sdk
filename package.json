@@ -7,13 +7,14 @@
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "dev:setup-cli": "npm link",
-    "release": "bun run build && changeset publish"
+    "release": "bun run build && changeset publish",
+    "changeset": "changeset",
+    "changeset:snapshot": "changeset version --snapshot"
   },
   "devDependencies": {
     "@types/bun": "^1.0.4",
     "@types/node": "^20.11.19",
     "autoprefixer": "^10.4.17",
-    "dappstore": "workspace:*",
     "knip": "^5.0.1",
     "postcss": "^8.4.35",
     "prettier": "^3.1.1",
@@ -23,9 +24,6 @@
   },
   "engines": {
     "node": ">=18"
-  },
-  "bin": {
-    "dappstore": "./"
   },
   "workspaces": [
     "packages/*"

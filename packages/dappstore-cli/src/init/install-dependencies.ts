@@ -10,14 +10,11 @@ import { readPackageJson } from "./read-package-json.js";
 export async function installDependencies(
   /** Indicate which package manager to use. */
   packageManager: PackageManager,
-  dependencies: string[] = [],
-  as: "dev" | "prod" = "dev"
+  dependencies: string[] = []
 ): Promise<void> {
   readPackageJson.cache.clear?.();
   const args: string[] = ["install"];
-  if (as === "dev") {
-    args.push("--save-dev");
-  }
+
   args.push(...dependencies);
 
   /**
