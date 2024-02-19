@@ -1,5 +1,11 @@
 # @evmos/dev-wrapper
 
+## 0.0.3
+
+### Patch Changes
+
+- 5295941: Fix package resolution
+
 ## 0.0.2
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @evmos/dappstore-sdk
 
+## 0.0.4
+
+### Patch Changes
+
+- 5295941: Fix package resolution
+
 ## 0.0.2
 
 ### Patch Changes
