@@ -2,6 +2,7 @@
   "name": "@evmos/utils",
   "type": "module",
   "sideEffects": false,
+  "private": true,
   "version": "1.0.0",
   "scripts": {},
   "devDependencies": {
