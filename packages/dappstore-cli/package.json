@@ -1,6 +1,6 @@
 {
   "name": "dappstore",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "private": false,
   "type": "module",
   "main": "dist/index.js",
@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@commander-js/extra-typings": "^12.0.0",
-    "@evmos/dev-wrapper": "0.0.2",
+    "@evmos/dev-wrapper": "0.0.3",
     "@types/cross-spawn": "^6.0.6",
     "@types/inquirer": "^9.0.7",
     "autoprefixer": "^10.4.17",
