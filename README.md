@@ -44,7 +44,7 @@ const useAccounts = () => {
   useEffect(() => {
     return dappstore.onAccountsChange(setAccounts); // <- returns cleanup function
   }, []);
-  return acccounts;
+  return accounts;
 };
 
 const useChainId = () => {
