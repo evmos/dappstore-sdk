@@ -21,16 +21,18 @@ console.log(
 dappstore.onAccountsChange((accounts) => {
   console.log(`Accounts changed: ${accounts}`); // -> Accounts changed: ["0x..."]
 });
-*
+
 // Shorthand for dappstore.provider.on("chainChanged", (chainId) => { ... })
 dappstore.onChainChange((chainId) => {
   console.log(`Chain changed: ${chainId}`); // -> Chain changed: evmos:1
 });
 
 // Or interact directly with the provider
-dappstore.provider.request({ method: "eth_requestAccounts" }).then((accounts) => {
- console.log(`Accounts: ${accounts}`); // -> Accounts: ["0x..."]
-});
+dappstore.provider
+  .request({ method: "eth_requestAccounts" })
+  .then((accounts) => {
+    console.log(`Accounts: ${accounts}`); // -> Accounts: ["0x..."]
+  });
 ```
 
 ## Usage with React:
@@ -44,7 +46,7 @@ const useAccounts = () => {
   useEffect(() => {
     return dappstore.onAccountsChange(setAccounts); // <- returns cleanup function
   }, []);
-  return acccounts;
+  return accounts;
 };
 
 const useChainId = () => {

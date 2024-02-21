@@ -6,8 +6,13 @@ type Config = {
   provider: unknown;
 };
 export const createHost = ({ provider, target }: Config) => {
-  return createPostMessageHost({
+  const trpcHost = createPostMessageHost({
     target,
     router: createHostRouter(provider),
+    ctx: {
+      debug: false,
+    },
   });
+
+  return trpcHost;
 };

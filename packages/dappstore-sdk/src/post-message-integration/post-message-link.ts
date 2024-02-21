@@ -1,6 +1,6 @@
 import { Operation, TRPCClientError, TRPCLink } from "@trpc/client";
 import { observable } from "@trpc/server/observable";
-import type { CombinedDataTransformer } from "@trpc/server";
+import type { CombinedDataTransformer, inferRouterContext } from "@trpc/server";
 /**
  * TRPC doesn't recommend importing unstable-core-do-not-import,
  * but unfortunately, they also don't offer an official API for creating custom links.
@@ -80,7 +80,6 @@ class PostMessageClient {
         },
         "*"
       );
-      console.log("dispatched", this.outgoing);
 
       this.outgoing = [];
     },
@@ -134,7 +133,7 @@ class PostMessageClient {
 }
 
 export const postMessageLink = <TRouter extends AnyRouter>(
-  opts: PostMessageOptions = {}
+  opts: PostMessageOptions
 ): TRPCLink<TRouter> => {
   const transformer = getTransformer(opts.transformer);
   const client = new PostMessageClient();

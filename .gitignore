@@ -36,3 +36,6 @@ yarn-error.log*
 # Misc
 .DS_Store
 *.pem
+
+# Files from the examples that we don't want to be commited
+examples/*/bun.lockb

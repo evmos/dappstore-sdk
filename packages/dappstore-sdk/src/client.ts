@@ -1,4 +1,5 @@
 import { createHost } from "./host";
+import { Log } from "./logger";
 import { trpcClient } from "./trpc/client";
 
 import {
@@ -8,7 +9,10 @@ import {
   ProviderMessage,
 } from "./types/EIP1193Provider";
 import { Hex, EIP1193Provider as StronglyTypedEIP1193Provider } from "viem";
+const loggerNamespace = "DAppStoreSDK CLIENT";
+const loggerProviderNamespace = "DAppStoreSDK CLIENT PROVIDER";
 class SDKProvider implements StronglyTypedEIP1193Provider {
+  logger = Log(loggerProviderNamespace);
   unsubscribers: Record<string, Map<Function, Function>> = {};
   on(
     event: "accountsChanged",
@@ -35,6 +39,7 @@ class SDKProvider implements StronglyTypedEIP1193Provider {
       // event === "disconnect" ||
       // event === "message"
     ) {
+      this.logger.info("Subscribing to event", event);
       const { unsubscribe } = trpcClient.provider.on[event].subscribe(
         undefined,
         {
@@ -57,23 +62,33 @@ class SDKProvider implements StronglyTypedEIP1193Provider {
   ): EIP1193Provider {
     this.unsubscribers[event]?.get(callback)?.();
     this.unsubscribers[event]?.delete(callback);
+    this.logger.info("Removing listener", event);
+
     return this;
   }
   request: StronglyTypedEIP1193Provider["request"] = (args) => {
     if (typeof window === "undefined") {
       throw new Error("Cannot call request outside of browser");
     }
-    return trpcClient.provider.request.mutate(args as never) as never;
+    this.logger.info("Sending message", args);
+    const response = trpcClient.provider.request.mutate(args as never) as never;
+    this.logger.info("Received response", response);
+
+    return response;
   };
 }
 
+type ClientOptions = {
+  autoInit?: boolean;
+  debug?: boolean;
+};
 class Client {
   // @internal
   _host: null | ReturnType<typeof createHost> = null;
   // @internal
   _listeners: Record<string, Set<Function>> = {};
   // @internal
-  _provider = new SDKProvider();
+  _provider: SDKProvider = new SDKProvider();
   // @internal
   _ready = false;
   // @internal
@@ -105,11 +120,26 @@ class Client {
       return true;
     }
   }
+  logger = Log(loggerNamespace, this.debug);
 
-  constructor(autoInit = true) {
+  // @internal
+  _debug: boolean = false;
+  set debug(value: boolean) {
+    this._debug = value;
+    this.logger = Log(loggerNamespace, value);
+    this.provider.logger = Log(loggerProviderNamespace, value);
+  }
+  get debug() {
+    return this._debug;
+  }
+  constructor({ autoInit = true, debug = false }: ClientOptions = {}) {
+    this.debug = debug;
+
     if (autoInit) this.initialized = this.init();
   }
+
   async init() {
+    this.logger.info("Initializing DAppStore SDK");
     if (this._isInsideIframe === false) {
       throw new Error(
         "Cannot use DAppStore SDK outside of the DAppStore iframe"
@@ -121,11 +151,7 @@ class Client {
       {
         onData: (data) => {
           this._accounts = data;
-          if (this._listeners.accountsChanged) {
-            this._listeners.accountsChanged.forEach((listener) => {
-              listener(data);
-            });
-          }
+          this.emitAccountsChange(data);
         },
       }
     );
@@ -135,11 +161,7 @@ class Client {
       {
         onData: (data) => {
           this._chainId = data;
-          if (this._listeners.chainChanged) {
-            this._listeners.chainChanged.forEach((listener) => {
-              listener(data);
-            });
-          }
+          this.emitChainChange(data);
         },
       }
     );
@@ -148,8 +170,9 @@ class Client {
       unsubChain.unsubscribe();
     };
   }
-  onAccountsChange(cb: (accounts: string[]) => void) {
+  onAccountsChange(cb: (accounts: `0x${string}`[]) => void) {
     if (!this._listeners.accountsChanged) {
+      this.logger.info("Subscribing to accounts change");
       this._listeners.accountsChanged = new Set();
     }
     this._listeners.accountsChanged.add(cb);
@@ -157,9 +180,18 @@ class Client {
       this._listeners.accountsChanged?.delete(cb);
     };
   }
+  private emitAccountsChange(accounts: string[]) {
+    if (this._listeners.accountsChanged) {
+      this.logger.info("accountsChanged event emitted", accounts);
+      this._listeners.accountsChanged.forEach((listener) => {
+        listener(accounts);
+      });
+    }
+  }
 
-  onChainChange(cb: (chainId: string) => void) {
+  onChainChange(cb: (chainId: `0x${string}`) => void) {
     if (!this._listeners.chainChanged) {
+      this.logger.info("Subscribing to chain change");
       this._listeners.chainChanged = new Set();
     }
     this._listeners.chainChanged.add(cb);
@@ -167,18 +199,34 @@ class Client {
       this._listeners.chainChanged?.delete(cb);
     };
   }
+
+  private emitChainChange(chainId: `0x${string}`) {
+    if (this._listeners.chainChanged) {
+      this.logger.info("chainChanged event emitted", chainId);
+      this._listeners.chainChanged.forEach((listener) => {
+        listener(chainId);
+      });
+    }
+  }
   async ack() {
-    const { state } = await trpcClient.ack.query({
+    const args = {
       version: process.env.npm_package_version as string,
-    });
+      debug: this.debug,
+    };
+    this.logger.info("Sending ack", args);
+
+    const ackResponse = await trpcClient.ack.query(args);
+    this.logger.info("Received ack", ackResponse);
     this._state = "ready";
-    this._accounts = state.accounts;
-    this._chainId = state.chainId;
+    this._accounts = ackResponse.state.accounts;
+    this._chainId = ackResponse.state.chainId;
+    this.emitAccountsChange(this._accounts);
+    this.emitChainChange(this._chainId);
   }
 }
 
-export const createDAppStoreClient = ({ autoInit = true } = {}) => {
-  const client = new Client(autoInit);
+export const createDAppStoreClient = (config: ClientOptions = {}) => {
+  const client = new Client(config);
 
   return client;
 };

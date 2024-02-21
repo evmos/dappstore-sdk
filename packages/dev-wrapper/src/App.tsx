@@ -130,7 +130,6 @@ const WidgetArea = () => {
       return;
     }
     connection.connector.getProvider().then((p) => {
-      console.log(p);
       setProvider(p as EIP1193Provider);
     });
   }, [connections]);

@@ -3,7 +3,10 @@ import { z } from "zod";
 import { observable } from "@trpc/server/observable";
 import { EIP1193Provider, Hex, ProviderConnectInfo } from "viem";
 
-const t = initTRPC.create({
+type Context = {
+  debug: boolean;
+};
+const t = initTRPC.context<Context>().create({
   allowOutsideOfServer: true,
 });
 
@@ -56,18 +59,21 @@ export const createHostRouter = (provider: unknown) => {
           version: z.string(),
         })
       )
-      .query(async () => {
+      .query(async ({}) => {
         const accounts = await _provider.request({
           method: "eth_requestAccounts",
         });
         const chainId = await _provider.request({ method: "eth_chainId" });
-        return {
+
+        const response = {
           version: process.env.npm_package_version as string,
           state: {
             accounts,
             chainId,
           },
         };
+
+        return response;
       }),
 
     provider: providerRouter,

@@ -4,6 +4,7 @@ import {
   callProcedure,
   getErrorShape,
   getTRPCErrorFromUnknown,
+  inferRouterContext,
   transformTRPCResponse,
 } from "@trpc/server";
 import {
@@ -19,9 +20,11 @@ import { isObservable } from "@trpc/server/observable";
 export const createPostMessageHost = <TRouter extends AnyRouter>({
   router,
   target,
+  ctx,
 }: {
   router: TRouter;
   target: Window;
+  ctx: inferRouterContext<TRouter>;
 }) => {
   const { transformer } = router._def._config;
 
@@ -63,7 +66,7 @@ export const createPostMessageHost = <TRouter extends AnyRouter>({
         procedures: router._def.procedures,
         path,
         getRawInput: async () => input,
-        ctx: {},
+        ctx,
         type,
       });
       if (!isObservable(result)) {
@@ -98,7 +101,7 @@ export const createPostMessageHost = <TRouter extends AnyRouter>({
               type,
               path,
               input,
-              ctx: {},
+              ctx,
             }),
           });
         },
@@ -132,7 +135,7 @@ export const createPostMessageHost = <TRouter extends AnyRouter>({
           type,
           path,
           input,
-          ctx: {},
+          ctx,
         }),
       });
     }
@@ -166,7 +169,7 @@ export const createPostMessageHost = <TRouter extends AnyRouter>({
         procedures: router._def.procedures,
         path,
         getRawInput: async () => input,
-        ctx: {},
+        ctx,
         type,
       });
 
@@ -191,7 +194,7 @@ export const createPostMessageHost = <TRouter extends AnyRouter>({
           type,
           path,
           input,
-          ctx: {},
+          ctx,
         }),
       });
     }

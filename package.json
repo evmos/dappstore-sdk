@@ -2,8 +2,8 @@
   "name": "dappstore-sdk",
   "private": true,
   "scripts": {
-    "build": "turbo build",
-    "dev": "turbo dev",
+    "build": "turbo build --filter=./packages/*",
+    "dev": "turbo dev --filter=./packages/*",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "dev:setup-cli": "npm link",
@@ -26,7 +26,8 @@
     "node": ">=18"
   },
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "examples/*"
   ],
   "dependencies": {
     "@changesets/cli": "^2.27.1",
