@@ -14,7 +14,13 @@ const shouldFix = process.argv.includes("--fix");
 console.log("Checking for missing licenses...\n");
 
 const files = await globby(
-  ["./**/*.{ts,tsx,js}", "!**/node_modules/**", "!./examples/**"],
+  [
+    "./**/*.{ts,tsx,js}",
+    "!**/node_modules/**",
+    "!./examples/**",
+    // ignore this file so it doesn't move the `#!/usr/bin/env node` line that needs to be at the top
+    "!packages/dappstore-cli/src/index.ts",
+  ],
   {
     gitignore: true,
   }
