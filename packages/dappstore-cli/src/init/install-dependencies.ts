@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/dappstore-sdk/blob/main/LICENSE)
+
 import spawn from "cross-spawn";
 import { PackageManager } from "./get-package-manager.js";
 import { readPackageJson } from "./read-package-json.js";

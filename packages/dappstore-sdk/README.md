@@ -133,3 +133,28 @@ const sendTransaction = async (to: `0x${string}`) => {
   });
 };
 ```
+
+## Disclaimer
+
+The software is provided “as is”, without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. In no event shall the authors or copyright holders be liable for any claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with the software or the use or other dealings in the software.
+
+## Licensing
+
+Evmos Non-Commercial License 1.0 (ENCL-1.0). For more information see [LICENSE](../../LICENSE).
+
+### SPDX Identifier
+
+The following header including a license identifier in SPDX short form has been added in all ENCL-1.0 files:
+
+```js
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/dappstore-sdk/blob/main/LICENSE)
+```
+
+### License FAQ
+
+Find below an overview of Permissions and Limitations of the Evmos Non-Commercial License 1.0. For more information, check out the full ENCL-1.0 FAQ [here](/LICENSE_FAQ.md).
+
+| Permissions                                                                                                                                                                  | Prohibited                                                                 |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| - Private Use, including distribution and modification<br />- Commercial use on designated blockchains<br />- Commercial use with Evmos permit (to be separately negotiated) | Commercial use, other than on designated blockchains, without Evmos permit |

@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/dappstore-sdk/blob/main/LICENSE)
+
 import { program } from "@commander-js/extra-typings";
 import { serve } from "@evmos/dev-wrapper/serve/serve.js";
 import chalk from "chalk";

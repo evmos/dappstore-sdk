@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/dappstore-sdk/blob/main/LICENSE)
+
 import { createHost } from "./host";
 import { Log } from "./logger";
 import { trpcClient } from "./trpc/client";

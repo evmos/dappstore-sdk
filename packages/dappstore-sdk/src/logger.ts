@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/dappstore-sdk/blob/main/LICENSE)
+
 const noop = () => {};
 export const Log = (ns: string, enabled = false) => {
   const { log, error, warn, info } = enabled

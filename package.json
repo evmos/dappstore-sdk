@@ -9,7 +9,10 @@
     "dev:setup-cli": "npm link",
     "release": "bun run build && changeset publish",
     "changeset": "changeset",
-    "changeset:snapshot": "changeset version --snapshot"
+    "changeset:snapshot": "changeset version --snapshot",
+    "license": "bun run ./check-license.js",
+    "license:fix": "bun run ./check-license.js --fix",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@types/bun": "^1.0.4",
@@ -31,6 +34,8 @@
   ],
   "dependencies": {
     "@changesets/cli": "^2.27.1",
-    "@evmos/utils": "workspace:*"
+    "@evmos/utils": "workspace:*",
+    "globby": "^14.0.1",
+    "husky": "^9.0.11"
   }
 }

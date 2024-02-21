@@ -1,3 +1,6 @@
+// Copyright Tharsis Labs Ltd.(Evmos)
+// SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/dappstore-sdk/blob/main/LICENSE)
+
 import { Operation, TRPCClientError, TRPCLink } from "@trpc/client";
 import { observable } from "@trpc/server/observable";
 import type { CombinedDataTransformer, inferRouterContext } from "@trpc/server";
