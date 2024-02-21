@@ -1,5 +1,11 @@
 # @evmos/dappstore-sdk
 
+## 0.0.6
+
+### Patch Changes
+
+- 0fffb5f: Improve logging and emit base events on initialize
+
 ## 0.0.5
 
 ### Patch Changes
