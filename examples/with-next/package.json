@@ -10,8 +10,8 @@
     "dev:dappstore": "dappstore dev --target 3000"
   },
   "dependencies": {
-    "@evmos/dappstore-sdk": "0.0.5",
-    "dappstore": "0.0.5",
+    "@evmos/dappstore-sdk": "0.0.6",
+    "dappstore": "0.0.6",
     "next": "14.1.0",
     "react": "^18",
     "react-dom": "^18"
